@@ -47,9 +47,9 @@ URL_list = []
 dupedURL_list = []  
 title_list = []        
 y=0 # Initialize the amount of times the loop has run
-x=30 # Set the amount of times the loop should run
+x=3 # Set the amount of times the loop should run
 t=0
-title="Placeholder"
+titleRough="Placeholder"
 a=2
 time.sleep(7) 
 # iterate through the x amount of vids  
@@ -76,9 +76,17 @@ while y <= x:
         print("No pinned comment")
         #save comment for new title
         try: 
-            title=driver.find_element(By.XPATH, '//*[@id="content-text"]').text
+            titleRough=driver.find_element(By.XPATH, '//*[@id="content-text"]').text
             #remove the /n from the title and replace with "  "
-            title=title.replace("\n", "  ")
+            titleRough=titleRough.replace("\n", "  ")
+
+            # Split the string based on "Edit:"
+            parts = titleRough.split("Edit:")
+
+            # Take the first part of the split (everything before "Edit:")
+            title = parts[0]
+
+            print(title)
 
             #error handle for unable to locate 'title'
 
@@ -86,7 +94,7 @@ while y <= x:
         # Handle the NoSuchElementException here
             print("Element not found. Performing alternative actions or error handling.")
 
-        if title == None:
+        if titleRough == None:
             print("skip")
         #handle element not being found
         else:
@@ -99,9 +107,17 @@ while y <= x:
 
         #save comment for new title
         try: 
-            title=driver.find_element(By.XPATH, '//*[@id="content-text"]').text
+            titleRough=driver.find_element(By.XPATH, '//*[@id="content-text"]').text
             #remove the /n from the title and replace with "  "
-            title=title.replace("\n", "  ")
+            titleRough=titleRough.replace("\n", "  ")
+
+            # Split the string based on "Edit:"
+            parts = titleRough.split("Edit:")
+
+            # Take the first part of the split (everything before "Edit:")
+            title = parts[0]
+
+            print(title)
 
             #error handle for unable to locate 'title'
 
@@ -109,7 +125,7 @@ while y <= x:
         # Handle the NoSuchElementException here
             print("Element not found. Performing alternative actions or error handling.")
 
-        if title == None:
+        if titleRough == None:
             print("skip")
 
     

@@ -27,16 +27,6 @@ driver = webdriver.Chrome(options=options)
 driver.set_window_size(1920, 1080)# wait for the page to load
 
 
-count=0
-dir_path = '/home/ohio/video'
-
-for path in os.listdir(dir_path):
-    if os.path.isfile(os.path.join(dir_path, path)):
-        count += 1
-print("   ", count, " Videos found in the videos folder, ready to upload...")
-time.sleep(6)
-
-
 count = 0
 dir_path = '/home/ohio/video'
 
@@ -55,7 +45,7 @@ email = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, '
 email.send_keys("hgfd9691@gmail.com")
 email.send_keys(Keys.RETURN)
 
-time.sleep(15)
+time.sleep(25)
 
 password = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'Passwd')))
 password.send_keys("13qeadzc")
@@ -115,11 +105,20 @@ for i in range(count):
     
     done_button = driver.find_element(By.XPATH, '//*[@id="done-button"]/div')
     done_button.click()
-    time.sleep(5)
+    time.sleep(15)
 
-    close_button = driver.find_element(By.XPATH, '/html/body/ytcp-video-share-dialog/ytcp-dialog/tp-yt-paper-dialog/div[3]/ytcp-button/div')
+    #close_button = driver.find_element(By.CSS_SELECTOR, 'close-button > div')
+
+    close_button = driver.find_element(By.XPATH, '//*[@id="close-button"]/div')
     close_button.click()
-    #css selectore    ytcp-button.ytcp-video-share-dialog > div:nth-child(2)
+
+
+    #If the close button errors, try swapping between XPATH and CSS selector
+    #FULL XPATH  /html/body/ytcp-video-share-dialog/ytcp-dialog/tp-yt-paper-dialog/div[3]/ytcp-button/div
+    #XPATH //*[@id="close-button"]/div
+    #css selector    ytcp-button.ytcp-video-share-dialog > div:nth-child(2)
+    #css selector    close-button > div
+    
     create_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-button/div')
     create_button.click()
 
