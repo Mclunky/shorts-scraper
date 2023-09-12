@@ -45,17 +45,18 @@ email = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, '
 email.send_keys("hgfd9691@gmail.com")
 email.send_keys(Keys.RETURN)
 
-time.sleep(25)
+time.sleep(5)
 
 password = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'Passwd')))
 password.send_keys("13qeadzc")
 password.send_keys(Keys.RETURN)
-time.sleep(7)
-for i in range(count):
-    upload_button = driver.find_element(By.XPATH, '//*[@id="upload-icon"]')
-    upload_button.click()
-    time.sleep(5)
+time.sleep(5)
+upload_button = driver.find_element(By.XPATH, '//*[@id="upload-icon"]')
+upload_button.click()
+time.sleep(5)
 
+for i in range(count):
+    
 
 
     dataset = "/home/ohio/Downloads/YTdownloader/my_file.csv"
@@ -66,6 +67,7 @@ for i in range(count):
         dir_list = os.listdir(path)
         rows = []
 
+        
         with open(dataset, 'r') as file:
             reader = csv.reader(file)
             for row in reader:
@@ -85,32 +87,35 @@ for i in range(count):
     simp_path = 'video/'+newTitle+'.mp4'.format(str(i+1))
     abs_path = os.path.abspath(simp_path)
     
-    file_input.send_keys(abs_path)
+    if os.path.exists(abs_path):
+    # The file exists, proceed with your script
+        file_input.send_keys(abs_path)
+    
+    
+        time.sleep(7)
 
-    time.sleep(7)
-
-    next_button = driver.find_element(By.XPATH, '//*[@id="next-button"]')
+        next_button = driver.find_element(By.XPATH, '//*[@id="next-button"]')
    
-    notForKids = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'VIDEO_MADE_FOR_KIDS_NOT_MFK')))
-    notForKids.click()
-    time.sleep(5)
+        notForKids = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME, 'VIDEO_MADE_FOR_KIDS_NOT_MFK')))
+        notForKids.click()
+        time.sleep(5)
 
-    for i in range(3):
-        next_button.click()
-        time.sleep(10)
+        for i in range(3):
+            next_button.click()
+            time.sleep(10)
   
 
-    PublicButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="privacy-radios"]/tp-yt-paper-radio-button[3]')))
-    PublicButton.click()
+        PublicButton = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, '//*[@id="privacy-radios"]/tp-yt-paper-radio-button[3]')))
+        PublicButton.click()
     
-    done_button = driver.find_element(By.XPATH, '//*[@id="done-button"]/div')
-    done_button.click()
-    time.sleep(15)
+        done_button = driver.find_element(By.XPATH, '//*[@id="done-button"]/div')
+        done_button.click()
+        time.sleep(15)
 
     #close_button = driver.find_element(By.CSS_SELECTOR, 'close-button > div')
 
-    close_button = driver.find_element(By.XPATH, '//*[@id="close-button"]/div')
-    close_button.click()
+        close_button = driver.find_element(By.XPATH, '//*[@id="close-button"]/div')
+        close_button.click()
 
 
     #If the close button errors, try swapping between XPATH and CSS selector
@@ -119,8 +124,12 @@ for i in range(count):
     #css selector    ytcp-button.ytcp-video-share-dialog > div:nth-child(2)
     #css selector    close-button > div
     
-    create_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-button/div')
-    create_button.click()
+        create_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-button/div')
+        create_button.click()
 
-    upload_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-text-menu/tp-yt-paper-dialog/tp-yt-paper-listbox/tp-yt-paper-item[1]/ytcp-ve/tp-yt-paper-item-body/div/div/div/yt-formatted-string')
+        #upload_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-text-menu/tp-yt-paper-dialog/tp-yt-paper-listbox/tp-yt-paper-item[1]/ytcp-ve/tp-yt-paper-item-body/div/div/div/yt-formatted-string')
+        upload_button.click()
+    else:
+        print(f"File '{abs_path}' does not exist.")
+
 driver.quit()
