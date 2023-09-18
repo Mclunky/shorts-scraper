@@ -47,11 +47,12 @@ URL_list = []
 dupedURL_list = []  
 title_list = []        
 y=0 # Initialize the amount of times the loop has run
-x=300 # Set the amount of times the loop should run
+x=30 # Set the amount of times the loop should run
 t=0
 titleRough="Placeholder"
 a=2
 time.sleep(7) 
+
 # iterate through the x amount of vids  
 while y <= x:
 
@@ -74,6 +75,7 @@ while y <= x:
     #handle element not found
     except StaleElementReferenceException:
         print("No pinned comment")
+        
         #save comment for new title
         try: 
             titleRough=driver.find_element(By.XPATH, '//*[@id="content-text"]').text
@@ -120,23 +122,26 @@ while y <= x:
             print(title)
 
             #error handle for unable to locate 'title'
+            if titleRough == None:
+                print("skip")
+
+            else:
+                title_list.append(title)
+                url = driver.current_url
+                URL_list.append(url)
 
         except NoSuchElementException:
-        # Handle the NoSuchElementException here
+            # Handle the NoSuchElementException here
             print("Element not found. Performing alternative actions or error handling.")
 
-        if titleRough == None:
-            print("skip")
+        
 
     
     #skip if element is displayed
     
 
     #append lists
-        else:
-            title_list.append(title)
-            url = driver.current_url
-            URL_list.append(url)
+        
 
    
    
