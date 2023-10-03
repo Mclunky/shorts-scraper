@@ -1,3 +1,4 @@
+
 import time, os
 import csv
 import json
@@ -165,10 +166,20 @@ def create_csv(filename, data):
 
 
     # Specify the filename for the CSV file
-csv_filename = '/home/ohio/Downloads/YTdownloader/my_file.csv'
+csv_filename ="C:/Users/Ohio/Documents/Shorts Scraper/my_file.csv"
 
-    # Call the function to create the CSV file
-create_csv(csv_filename, newCombList)       
+def create_csv(filename, data):
+    with open(filename, 'w', encoding='utf-8', newline='') as file:
+        writer = csv.writer(file)
+        for item in data:
+            writer.writerows([item])
+
+# Specify the filename for the CSV file
+csv_filename ="C:/Users/Ohio/Documents/Shorts Scraper/my_file.csv"
+
+# Call the function to create the CSV file
+create_csv(csv_filename, newCombList)
+  
  
 print(y)
 print(newCombList)
