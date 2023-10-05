@@ -36,7 +36,7 @@ driver.set_window_size(1920, 1080)# wait for the page to load
 
 
 count = 0
-dir_path = 'Videos/Main/'
+dir_path = 'Videos/Combined/'
 
 for path in os.listdir(dir_path):
     if os.path.isfile(os.path.join(dir_path, path)):
@@ -59,7 +59,10 @@ password = WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NA
 password.send_keys("13qeadzc")
 password.send_keys(Keys.RETURN)
 time.sleep(6)
-upload_button = driver.find_element(By.XPATH, '//*[@id="upload-icon"]')
+create_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-button/div')
+create_button.click()
+
+upload_button = driver.find_element(By.XPATH, '/html/body/ytcp-app/ytcp-entity-page/div/ytcp-header/header/div/ytcp-text-menu/tp-yt-paper-dialog/tp-yt-paper-listbox/tp-yt-paper-item[1]/ytcp-ve/tp-yt-paper-item-body/div/div/div/yt-formatted-string')
 upload_button.click()
 time.sleep(5)
 
@@ -68,7 +71,7 @@ for i in range(count):
 
 
     dataset = "my_file.csv"
-    path = "Videos/Main"
+    path = "Videos/Main/"
 
 
     def download_dataset(dataset, path, i, end=0):
@@ -89,10 +92,10 @@ for i in range(count):
         filename = row[1]
         return filename
 
-    newTitle=download_dataset(dataset, path, i, 10)
+    newTitle=download_dataset(dataset, path, i, 7)
 
     file_input = driver.find_element(By.XPATH, '//*[@id="content"]/input')
-    simp_path = 'Videos/Main/'+newTitle+'.mp4'.format(str(i+1))
+    simp_path = 'Videos/Combined/'+newTitle+'.mp4'.format(str(i+1))
     abs_path = os.path.abspath(simp_path)
     
     if os.path.exists(abs_path):
